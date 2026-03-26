@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Argentina Now: Registro</title>
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Special+Gothic+Expanded+One&display=swap" rel="stylesheet">
+  <link href="main.css" rel="stylesheet" type="text/css" />
+  <style>
+
+    form {
+      background-color: rgba(0, 0, 0, 0.95);
+      border-radius: 10px;
+      padding: 30px;
+      max-width: 400px;
+      margin: 30px auto;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    input, button {
+      padding: 10px;
+      margin: 10px 0;
+      width: 100%;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    .error {
+      color: red;
+      margin-top: 10px;
+      font-size: 0.9em;
+    }
+
+    .input-error {
+      border: 2px solid red;
+    }
+
+    button {
+      background-color: #33a5d9;
+      color: white;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #b1b330;
+    }
+  </style>
+</head>
+<body>
+
+<div class="arriba">
+  <div class="izquierda">
+    <a href="index.html">
+      <img src="https://i.ibb.co/60sB41mL/Chat-GPT-Image-4-abr-2025-14-32-09.png" alt="Argentina Now" class="logo">
+    </a>
+    <a href="trivia.html">TRIVIA</a>
+    <a href="contacto.html">DEPORTES</a>
+  </div>
+</div>
+<hr></hr>
+<form id="registroForm">
+  <h1>Registro: Argentina Now</h1>
+
+  <label for="nombre">Nombre:</label>
+  <input type="text" id="nombre" name="nombre" placeholder="Ingrese su nombre">
+
+  <label for="mail">Email:</label>
+  <input type="email" id="mail" name="mail" placeholder="abc@gmail.com">
+
+  <label for="contraseña">Contraseña:</label>
+  <input type="password" id="contraseña" name="contraseña" placeholder="6 caracteres y 1 número mínimo">
+
+  <label for="confirmecontraseña">Confirmar Contraseña:</label>
+  <input type="password" id="confirmecontraseña" name="confirmecontraseña" placeholder="Repita la contraseña">
+
+  <div class="error" id="mensajeError"></div>
+
+  <button type="submit">Registrarse</button>
+</form>
+
+<script>
+  const form = document.getElementById('registroForm');
+  const mensajeError = document.getElementById('mensajeError');
+
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const nombre = form.nombre;
+    const mail = form.mail;
+    const contraseña = form.contraseña;
+    const confirme = form.confirmecontraseña;
+
+    mensajeError.textContent = '';
+    [nombre, mail, contraseña, confirme].forEach(input => {
+      input.classList.remove("input-error");
+    });
+
+    // Validar nombre
+    if (nombre.value.trim().length < 3) {
+      mensajeError.textContent = "El nombre debe tener al menos 3 caracteres.";
+      nombre.classList.add("input-error");
+      return;
+    }
+
+    // Validar email
+    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!regexEmail.test(mail.value.trim())) {
+      mensajeError.textContent = "El correo electrónico no es válido.";
+      mail.classList.add("input-error");
+      return;
+    }
+
+    // Validar contraseña (mínimo 6 caracteres y al menos un número)
+    const regexPass = /^(?=.*\d).{6,}$/;
+    if (!regexPass.test(contraseña.value)) {
+      mensajeError.textContent = "La contraseña debe tener al menos 6 caracteres y un número.";
+      contraseña.classList.add("input-error");
+      return;
+    }
+
+    // Validar que las contraseñas coincidan
+    if (contraseña.value !== confirme.value) {
+      mensajeError.textContent = "Las contraseñas no coinciden.";
+      confirme.classList.add("input-error");
+      return;
+    }
+
+    // Si todo está bien
+    alert("Registro exitoso. ¡Bienvenido/a a Argentina Now!");
+    form.reset();
+  });
+</script>
+
+</body>
+</html>
+
+
